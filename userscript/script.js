@@ -13,7 +13,7 @@
 // @require      https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js
 // @require      https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js
 // @resource     bootstrapCSS https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
-// @resource     customCSS    https://icarus-tracker.k8s.jslay.net/userscript/style.css
+// @resource     customCSS    https://icarus-tracker.k8s.jslay.net/static/userscript/style.css
 // @grant        GM.xmlHttpRequest
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
