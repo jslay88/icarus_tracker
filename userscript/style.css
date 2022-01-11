@@ -1,0 +1,28 @@
+.panelContainer {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 600px;
+    max-width: 600px;
+    z-index: 1000;
+}
+
+.panelContainer select {
+    background-color: #212529BF;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+    color: inherit;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.panelContainer option {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+.panelContainer input {
+    background-color: inherit;
+    color: inherit;
+}
