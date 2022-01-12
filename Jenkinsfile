@@ -51,7 +51,7 @@ pipeline {
                                 echo "Setting ${env.BRANCH_NAME} hostname..."
                                 HOSTNAME = "${env.BRANCH_NAME}.${env.HOSTNAME}"
                             }
-                            if (currentBuild.number) > 1 {
+                            if (currentBuild.number > 1) {
                                 EXISTING_POSTGRES_PASSWORD = "--set postgresql.existingSecret=icarus-tracker-postgresql"
                             }
                             echo "Deploying ${env.BRANCH_NAME} to ${HOSTNAME}..."
