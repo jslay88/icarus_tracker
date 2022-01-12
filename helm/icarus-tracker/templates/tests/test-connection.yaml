@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "icarus-tracker.fullname" . }}-test-connection"
+  labels:
+    {{- include "icarus-tracker.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "icarus-tracker.fullname" . }}:{{ .Values.service.port }}/health']
+  restartPolicy: Never

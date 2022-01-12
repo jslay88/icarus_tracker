@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Icarus Tracker
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @updateURL    https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @downloadURL  https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @description  Track mined caves for multiple sessions and users
@@ -178,6 +178,7 @@
           for (let i=0; i < this.user.game_sessions.length; i++) {
             if (this.user.game_sessions[i].id.toString() === this.selectedSessionId) {
               Vue.set(this.user.game_sessions, i, response.data)
+              break
             }
           }
         } catch (e) {

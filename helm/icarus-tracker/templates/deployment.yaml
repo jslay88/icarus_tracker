@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "icarus-tracker.fullname" . }}
+  labels:
+    {{- include "icarus-tracker.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "icarus-tracker.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "icarus-tracker.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "icarus-tracker.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DB_HOST
+              {{- if .Values.postgresql.nameOverride }}
+              value: "{{ .Values.postgresql.nameOverride }}-postgresql"
+              {{- else if .Values.postgresql.fullnameOverride }}
+              value: {{ .Values.postgresql.fullNameOverride | quote }}
+              {{- else }}
+              value: "{{ include "icarus-tracker.fullname" . }}-postgresql"
+              {{- end }}
+            - name: DB_NAME
+              value: {{ .Values.postgresql.postgresqlDatabase | quote }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: postgres-secret
+              mountPath: "/var/run/secrets/icarus_tracker/postgres"
+              readOnly: true
+      volumes:
+        - name: postgres-secret
+          secret:
+            {{- if .Values.postgresql.nameOverride }}
+            secretName: "{{ .Values.postgresql.nameOverride }}-postgresql"
+            {{- else if .Values.postgresql.fullnameOverride }}
+            secretName {{ .Values.postgresql.fullnameOverride | quote }}
+            {{- else }}
+            secretName: "{{ include "icarus-tracker.fullname" . }}-postgresql"
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

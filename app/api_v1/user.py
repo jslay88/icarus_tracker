@@ -10,9 +10,9 @@ from ..settings import settings
 router = APIRouter()
 
 
-@router.get('/', response_model=List[schemas.UserDB])
-def get_users(db: Session = Depends(get_db)) -> List[Union[models.User, schemas.UserDB]]:
-    return crud.get_users(db)
+# @router.get('/', response_model=List[schemas.UserDB])
+# def get_users(db: Session = Depends(get_db)) -> List[Union[models.User, schemas.UserDB]]:
+#     return crud.get_users(db)
 
 
 @router.get('/{user_id}', response_model=schemas.UserWithGameSessions)
@@ -46,7 +46,7 @@ def get_user_game_sessions(
 
 
 @router.get('/{user_id}/game_session/{game_session_id}', response_model=schemas.GameSessionWithMarkers)
-def get_game_session(
+def get_user_game_session(
         user_id: str, game_session_id: str, db: Session = Depends(get_db)
 ) -> List[Union[models.GameSession, schemas.GameSessionDB]]:
     user = crud.get_user(db, user_id)
