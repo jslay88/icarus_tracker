@@ -51,6 +51,9 @@ pipeline {
                                 echo "Setting ${env.BRANCH_NAME} hostname..."
                                 HOSTNAME = "${env.BRANCH_NAME}.${env.HOSTNAME}"
                             }
+                            if (currentBuild.number) > 1 {
+                                EXISTING_POSTGRES_PASSWORD = "--set postgresql.existingSecret=icarus-tracker-postgresql"
+                            }
                             echo "Deploying ${env.BRANCH_NAME} to ${HOSTNAME}..."
 
                             docker.image('alpine/helm:3.5.4').inside("-v $KUBECONFIG:/tmp/kubeconfig -e KUBECONFIG=/tmp/kubeconfig --entrypoint=''") {
@@ -62,7 +65,8 @@ pipeline {
                                 --set image.tag=${GIT_COMMIT} \
                                 --set ingress.hostName="${HOSTNAME}" \
                                 --set ingress.hosts[0].host="${HOSTNAME}" \
-                                --set ingress.tls[0].hosts[0]="${HOSTNAME}"
+                                --set ingress.tls[0].hosts[0]="${HOSTNAME}" \
+                                ${EXISTING_POSTGRES_PASSWORD}
                                 """
                             }
                         }
