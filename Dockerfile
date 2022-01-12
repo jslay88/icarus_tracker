@@ -18,7 +18,7 @@ COPY ./alembic.ini /app/alembic.ini
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 COPY app/ /app/app
-COPY migrations /app/migrations
+COPY migrations/ /app/migrations
 
 RUN mkdir /app/static
 COPY ./userscript /app/static/userscript

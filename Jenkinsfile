@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     sh 'ls -la'
-                    apiImage = docker.build("docker.home.jslay.net:5000/jslay/icarus_tracker:${env.BUILD_TAG}")
+                    apiImage = docker.build("docker.home.jslay.net:5000/jslay/icarus_tracker:${GIT_COMMIT}")
                 }
             }
         }
