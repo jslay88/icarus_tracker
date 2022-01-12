@@ -8,3 +8,7 @@ ingress:
   className: nginx
   tls:
     - secretName: tls
+  hosts:
+    - paths:
+      - path: /
+        pathType: ImplementationSpecific
