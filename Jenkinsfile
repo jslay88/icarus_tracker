@@ -59,7 +59,7 @@ pipeline {
                                 --create-namespace --namespace icarus-tracker-${env.BRANCH_NAME} \
                                 -f helm/overrides/cluster.yml \
                                 --wait helm/icarus-tracker \
-                                --set image.tag=${env.BUILD_TAG} \
+                                --set image.tag=${GIT_COMMIT} \
                                 --set ingress.hostName="${HOSTNAME}" \
                                 --set ingress.hosts[0].host="${HOSTNAME}" \
                                 --set ingress.tls[0].hosts[0]="${HOSTNAME}"
