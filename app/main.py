@@ -1,7 +1,7 @@
 import os.path
 import logging
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from .api_v1 import api as api_v1
@@ -39,6 +39,21 @@ def app():
     def health(): return {'health': 'healthy'}
 
     if os.path.isdir('static') and os.listdir('static'):
+        if os.path.isfile('static/userscript/script.js'):
+            logger.info('Userscript detected, creating update.js route...')
+            with open('static/userscript/script.js') as f:
+                for line in f.readlines():
+                    if line.startswith('// @version'):
+                        version = line.strip()
+                        break
+                else:
+                    version = '// @version      100.0'
+
+            @_app.get('/static/userscript/update.js')
+            def script_update():
+                data = f'// ==UserScript==\n{version}\n// ==/UserScript==\n'
+                return Response(content=data, media_type='application/javascript')
+
         from fastapi.staticfiles import StaticFiles
         logger.info('Mounting Static...')
         _app.mount('/static', StaticFiles(directory='static', html=True), name='static')
