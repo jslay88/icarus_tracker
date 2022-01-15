@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Icarus Tracker
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @updateURL    https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @downloadURL  https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @description  Track mined caves for multiple sessions and users
@@ -136,7 +136,7 @@
         try {
           let response = await axios.get(`${scheme}://${baseAPIUrl}/api/v1/user/${this.user.id}`)
           this.user = response.data
-          Cookies.set('it_token', response.data.id)
+          Cookies.set('it_token', response.data.id, { expires: 2920 })
         } catch (e) {
           console.warn(e)
         }
