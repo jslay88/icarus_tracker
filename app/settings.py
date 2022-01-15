@@ -34,5 +34,7 @@ class Settings(BaseSettings):
     if LOG_LEVEL not in ['DEBUG', 'INFO', 'WARNING', 'CRITICAL']:
         LOG_LEVEL = 'INFO'
 
+    VERSION = '1.0.0'
+
 
 settings = Settings()
