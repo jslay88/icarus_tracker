@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Icarus Tracker
-// @namespace    http://tampermonkey.net/
-// @version      0.3
+// @namespace    https://icarus-tracker.k8s.jslay.net/api/v1/
+// @version      0.4
 // @updateURL    https://icarus-tracker.k8s.jslay.net/static/userscript/update.js
 // @downloadURL  https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @description  Track mined caves for multiple sessions and users
