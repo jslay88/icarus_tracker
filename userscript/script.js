@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Icarus Tracker
 // @namespace    https://icarus-tracker.k8s.jslay.net/api/v1/
-// @version      0.4
+// @version      0.5
 // @updateURL    https://icarus-tracker.k8s.jslay.net/static/userscript/update.js
 // @downloadURL  https://icarus-tracker.k8s.jslay.net/static/userscript/script.js
 // @description  Track mined caves for multiple sessions and users
 // @author       jslay
 // @match        https://www.icarusintel.com/
-// @icon         https://www.google.com/s2/favicons?domain=icarusintel.com
+// @icon         https://www.icarusintel.com/icon/page2.png
 // @require      https://cdn.jsdelivr.net/npm/axios@^0.22.0/dist/axios.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js
 // @require      https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js
